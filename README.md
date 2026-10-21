@@ -13,8 +13,8 @@ Konteks & Keputusan Arsitektur (Pertemuan 5) serta Karakteristik Arsitektur & At
 
 | No | Stambuk | Nama | Akun GitHub | Kode yang dikerjakan |
 |---|---|---|---|---|
-| 1 | 13020240274 | Selma Lia Putri | @username_github |  |
-| 2 | 13020240059 | Nur Syifa Ainina | @helmaliaputri200506-prog |  |
+| 1 | 13020240274 | Selma Lia Putri | @helmaliaputri200506-prog |  |
+| 2 | 13020240059 | Nur Syifa Ainina | @username_github |  |
 | 3 | 13020240028 | Nurul Qamri Ramadhina | @qamriich | A5, B2, B3, B5 |
 
 ## Peta berkas dan penanggung jawab
