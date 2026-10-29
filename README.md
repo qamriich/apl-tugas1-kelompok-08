@@ -25,11 +25,11 @@ Status: Belum / Draf / Selesai. Perbarui tabel ini setiap ada perubahan.
 |---|---|---|---|
 | BAB I | laporan/BAB1-pendahuluan.md | Semua Anggota | Belum |
 | A1 | laporan/A1-konteks-arsitektur.md | Nur Syifa Ainina | Belum |
-| A2 | laporan/A2-stakeholder.md | Selma Lia Putri | Belum |
+| A2 | laporan/A2-stakeholder.md | Selma Lia Putri | Sudah |
 | A3 | laporan/A3-batasan.md | Nur Syifa Ainina | Belum |
-| A4 | laporan/A4-asr.md |  Selma Lia Putri | Belum |
+| A4 | laporan/A4-asr.md |  Selma Lia Putri |Sudah |
 | A5 | laporan/A5-keputusan-arsitektur.md dan adr/ | Nurul Qamri Ramadhina | Belum |
-| B1 | laporan/B1-karakteristik.md | Selma Lia Putri | Belum |
+| B1 | laporan/B1-karakteristik.md | Selma Lia Putri | Sudah|
 | B2 | laporan/B2-atribut-terukur.md | Nurul Qamri Ramadhina | Belum |
 | B3 | laporan/B3-tiga-struktur.md dan diagram/ | Nurul Qamri Ramadhina | Belum |
 | B4 | laporan/B4-iso-25010.md | Nur Syifa Ainina | Belum |
