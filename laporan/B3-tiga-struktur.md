@@ -34,5 +34,5 @@ Struktur ini memetakan perangkat lunak ke dalam lingkungan infrastruktur jaringa
 * **Database Server Node:** *Server* terdedikasi terpisah yang mengelola *Database Management System* (MySQL/MariaDB) dan terhubung ke *Application Server* melalui *Private Network* (TCP/IP) demi keamanan data.
 
 *(Berikut adalah diagram alokasi arsitektur fisik dan jaringan)*
+
 ![Diagram Alokasi](../diagram/B3-struktur-alokasi.png)
-git add diagram/ laporan/B3-tiga-struktur.md
