@@ -13,7 +13,7 @@ Struktur ini menggambarkan bagaimana kode dan fungsi sistem dibagi menjadi unit-
 * **Modul Notifikasi:** Menangani pengiriman pembaruan status ke email/perangkat mahasiswa, yang dipicu oleh Modul Pengaduan dan Modul Pembayaran.
 
 *(Berikut adalah diagram struktur modul sistem rusunawa)*
-![Diagram Modul](../diagram/image_e54142.png)
+![Diagram Modul](../diagram/B3-struktur-modul.png)
 
 ### 2. Struktur Komponen dan Konektor (C&C View)
 Struktur ini menunjukkan elemen sistem pada saat *runtime* (sistem sedang berjalan) dan bagaimana data mengalir, khususnya saat terjadi lonjakan pendaftaran.
@@ -25,7 +25,7 @@ Struktur ini menunjukkan elemen sistem pada saat *runtime* (sistem sedang berjal
 * **External API:** Layanan pihak ketiga (*Email/Push Gateway*) untuk memfasilitasi pengiriman notifikasi terpusat (ADR-003).
 
 *(Berikut adalah diagram komponen dan konektor saat sistem berjalan)*
-![Diagram C&C](../diagram/image_e540e8.png)
+![Diagram C&C](../diagram/B3-struktur-cc.png)
 
 ### 3. Struktur Alokasi (Allocation/Deployment View)
 Struktur ini memetakan perangkat lunak ke dalam lingkungan infrastruktur jaringan dan perangkat keras (*server*).
@@ -34,5 +34,5 @@ Struktur ini memetakan perangkat lunak ke dalam lingkungan infrastruktur jaringa
 * **Database Server Node:** *Server* terdedikasi terpisah yang mengelola *Database Management System* (MySQL/MariaDB) dan terhubung ke *Application Server* melalui *Private Network* (TCP/IP) demi keamanan data.
 
 *(Berikut adalah diagram alokasi arsitektur fisik dan jaringan)*
-![Diagram Alokasi](../diagram/image_e53e38.png)
+![Diagram Alokasi](../diagram/B3-struktur-alokasi.png)
 git add diagram/ laporan/B3-tiga-struktur.md
