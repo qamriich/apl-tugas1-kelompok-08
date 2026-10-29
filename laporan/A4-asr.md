@@ -1,6 +1,6 @@
 # A4. Kebutuhan Signifikan (ASR)
 
-<!-- Penanggung jawab: [nama] -->
+<!-- Penanggung jawab: Selma lia putri -->
 
 
 Untuk memenuhi Kebutuhan Signifikan Arsitektur (ASR) yang telah ditetapkan, rancangan arsitektur menerapkan taktik arsitektur spesifik (*Architectural Tactics*) berdasarkan atribut kualitas utama:
