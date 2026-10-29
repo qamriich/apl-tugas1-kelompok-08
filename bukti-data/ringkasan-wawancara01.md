@@ -4,7 +4,7 @@
 
 - **Tanggal:** 25-10-2026
 - **Responden (peran saja):** Mahasiswa Semester 5
-- **Pewawancara:** 
+- **Pewawancara:** Nur Syifa Ainina
 - **Layanan yang dibahas:** Pengelolaan layanan Rusunawa, meliputi pendaftaran, penempatan kamar, dan pengaduan penghuni.
 
 ### Pertanyaan dan Ringkasan Jawaban
