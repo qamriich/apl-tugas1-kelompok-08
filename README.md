@@ -23,19 +23,19 @@ Status: Belum / Draf / Selesai. Perbarui tabel ini setiap ada perubahan.
 
 | Kode | Berkas | Penanggung jawab | Status |
 |---|---|---|---|
-| BAB I | laporan/BAB1-pendahuluan.md | Semua Anggota | Belum |
-| A1 | laporan/A1-konteks-arsitektur.md | Nur Syifa Ainina | Belum |
+| BAB I | laporan/BAB1-pendahuluan.md | Semua Anggota | Sudah |
+| A1 | laporan/A1-konteks-arsitektur.md | Nur Syifa Ainina | Sudah |
 | A2 | laporan/A2-stakeholder.md | Selma Lia Putri | Sudah |
-| A3 | laporan/A3-batasan.md | Nur Syifa Ainina | Belum |
+| A3 | laporan/A3-batasan.md | Nur Syifa Ainina | Sudah |
 | A4 | laporan/A4-asr.md |  Selma Lia Putri |Sudah |
-| A5 | laporan/A5-keputusan-arsitektur.md dan adr/ | Nurul Qamri Ramadhina | Belum |
+| A5 | laporan/A5-keputusan-arsitektur.md dan adr/ | Nurul Qamri Ramadhina | Sudah |
 | B1 | laporan/B1-karakteristik.md | Selma Lia Putri | Sudah|
-| B2 | laporan/B2-atribut-terukur.md | Nurul Qamri Ramadhina | Belum |
-| B3 | laporan/B3-tiga-struktur.md dan diagram/ | Nurul Qamri Ramadhina | Belum |
-| B4 | laporan/B4-iso-25010.md | Nur Syifa Ainina | Belum |
-| B5 | laporan/B5-trade-off.md | Nurul Qamri Ramadhina | Belum |
-| BAB IV | laporan/BAB4-penutup.md | Semua Anggota | Belum |
-| Pustaka | laporan/daftar-pustaka.md | Semua Anggota | Belum |
+| B2 | laporan/B2-atribut-terukur.md | Nurul Qamri Ramadhina | Sudah |
+| B3 | laporan/B3-tiga-struktur.md dan diagram/ | Nurul Qamri Ramadhina | Sudah |
+| B4 | laporan/B4-iso-25010.md | Nur Syifa Ainina | Sudah |
+| B5 | laporan/B5-trade-off.md | Nurul Qamri Ramadhina | Sudah |
+| BAB IV | laporan/BAB4-penutup.md | Semua Anggota | Sudah |
+| Pustaka | laporan/daftar-pustaka.md | Semua Anggota | Sudah |
 
 ## Laporan PDF terakhir
 
