@@ -1,28 +1,87 @@
+
 # U1. Konteks dan ASR (Architectural Significant Requirements)
 
 ## 1. Ringkasan Layanan Rusunawa Terpadu
-Sistem Informasi Layanan Rusunawa Terpadu merupakan subsistem Academic Management yang dirancang untuk mengelola seluruh operasional hunian mahasiswa, mencakup pendaftaran calon penghuni, visualisasi katalog dan tarif kamar 4 lantai, pembayaran sewa, serta manajemen tiket pengaduan kerusakan fasilitas.
 
-## 2. Masalah Utama Layanan & Bukti Empiris
-* **Deskripsi Masalah Utama:** 
-  Sistem mengalami kegagalan total (*crash / HTTP 504 Gateway Timeout*) dan *race condition* data saat pembukaan serentak kuota pendaftaran kamar rusunawa pada jam beban puncak (*peak traffic load*). Hal ini menyebabkan calon penghuni gagal menyelesaikan proses formulir dan status kamar menjadi tidak valid.
-  
-* **Bukti Empiris (Wawancara Responden R1 - Calon Penghuni):**
-  > *"Saat jam 08.00 WITA pendaftaran dibuka, situs langsung lurus tidak bisa dibuka dan keluar tulisan Error 504 Gateway Timeout. Pas halaman berhasil di-refresh 10 menit kemudian, kuota kamar sudah dinyatakan habis padahal formulir saya belum sempat terkirim."*  
-  *(Responden R1: Mahasiswa Calon Penghuni Rusunawa)*
+Sistem Informasi Layanan Rusunawa Terpadu merupakan bagian dari *Academic Management* yang dirancang untuk mempermudah pengelolaan hunian mahasiswa. Sistem ini mencakup pendaftaran, informasi ketersediaan dan tarif kamar pada empat lantai, pembayaran sewa, serta pengaduan kerusakan fasilitas.
+
+Dengan adanya sistem ini, mahasiswa dapat memperoleh informasi hunian dengan lebih mudah, sementara pengelola dapat memberikan pelayanan secara lebih teratur dan efisien.
+
+## 2. Masalah Utama Layanan dan Bukti Empiris
+
+### 2.1 Deskripsi Masalah Utama
+
+Permasalahan utama pada layanan Rusunawa Putri adalah belum adanya sistem informasi resmi yang menghubungkan seluruh proses pelayanan, mulai dari pendaftaran, informasi kamar dan tarif, pembayaran, hingga pengaduan.
+
+Berdasarkan hasil wawancara, pendaftaran masih dilakukan dengan menghubungi staf secara langsung. Staf menjelaskan biaya sewa, mengecek kamar yang tersedia, kemudian memberikan pilihan kepada calon penghuni.
+
+Informasi pembayaran dan pengaduan juga masih disampaikan melalui grup WhatsApp atau pesan pribadi. Hal ini membuat pelayanan bergantung pada komunikasi langsung dengan staf dan belum terpusat dalam satu platform.
+
+Oleh karena itu, diperlukan sistem informasi terpadu untuk mempermudah penyampaian informasi serta membantu pengelolaan layanan Rusunawa.
+
+### 2.2 Bukti Empiris
+
+Berdasarkan wawancara dengan calon penghuni, penghuni, dan staf Rusunawa Putri, ditemukan beberapa kondisi berikut:
+
+1. **Proses Pendaftaran:** Calon penghuni menghubungi staf untuk mendapatkan informasi biaya sewa dan ketersediaan kamar sesuai lantai yang dipilih.
+
+2. **Informasi Ketersediaan Kamar:** Staf memberikan informasi kamar kosong, kemudian calon penghuni dapat memilih kamar yang tersedia.
+
+3. **Informasi Pembayaran:** Informasi pembayaran sewa disampaikan melalui grup WhatsApp atau pesan pribadi dari staf.
+
+4. **Pengaduan Penghuni:** Keluhan mengenai fasilitas disampaikan melalui WhatsApp karena belum tersedia platform khusus untuk pengaduan.
+
+5. **Pengelolaan Layanan:** Seluruh proses pelayanan masih dilakukan melalui komunikasi dengan staf dan belum terintegrasi dalam satu sistem.
+
+Dari hasil tersebut, diperlukan platform resmi yang dapat menyatukan seluruh layanan agar informasi lebih mudah diakses oleh calon penghuni, penghuni, maupun pengelola.
 
 ## 3. Pemangku Kepentingan (Stakeholders)
-1. **Pengelola Rusunawa (Key Player):** Mengontrol alokasi kamar, verifikasi pendaftaran, dan menerima laporan operasional.
-2. **Pimpinan Kampus / Rektorat (Keep Satisfied):** Mengawasi pemanfaatan aset rusunawa dan laporan keuangan sewa berkala.
-3. **Mahasiswa Penghuni & Calon Penghuni (Keep Informed):** Mengakses informasi kamar, mendaftar serentak, dan melaporkan kerusakan fasilitas.
-4. **Tim Pengembang & IT Support (Monitor):** Memelihara ketersediaan server, infrastruktur basis data, dan kode aplikasi.
+
+Pihak-pihak yang memiliki peran dalam pengelolaan Sistem Informasi Layanan Rusunawa Terpadu adalah sebagai berikut:
+
+| No. | Stakeholder | Peran dan Kepentingan | Kategori |
+|---|---|---|---|
+| 1 | Pengelola Rusunawa | Mengelola kamar, memeriksa pendaftaran, memantau pembayaran, dan menangani pengaduan. | Key Player |
+| 2 | Pimpinan Kampus / Rektorat | Mengawasi operasional Rusunawa dan menerima laporan keuangan serta pelayanan. | Keep Satisfied |
+| 3 | Mahasiswa Penghuni dan Calon Penghuni | Mengakses informasi kamar, tarif, pendaftaran, pembayaran, dan pengaduan. | Keep Informed |
+| 4 | Tim Pengembang dan IT Support | Memelihara aplikasi, server, basis data, serta menangani kendala teknis. | Monitor |
 
 ## 4. Karakteristik Pendorong Mutu (Quality Drivers)
-1. **Performance Efficiency (Capacity & Time Behaviour):** Menangani lonjakan *traffic concurrency* pendaftaran serentak tanpa menghentikan layanan.
-2. **Usability (Operability):** Menyajikan transparansi status ketersediaan kamar dan tarif sewa dengan navigasi sederhana (< 3 kali klik).
-3. **Reliability (Fault Tolerance & Data Persistence):** Memastikan seluruh data pendaftaran dan tiket pengaduan tersimpan secara konsisten tanpa ada data yang hilang.
+
+*Quality Drivers* merupakan aspek kualitas yang menjadi acuan dalam merancang arsitektur sistem. Terdapat tiga karakteristik utama yang perlu diperhatikan.
+
+### 4.1 Performance Efficiency
+
+Sistem harus mampu menjalankan pelayanan secara cepat dan efisien, mulai dari pendaftaran hingga pengelolaan pembayaran dan pengaduan. Tujuannya adalah mengurangi waktu tunggu serta mempercepat penyampaian informasi kepada pengguna.
+
+### 4.2 Usability
+
+Sistem perlu memiliki tampilan sederhana dan mudah dipahami oleh seluruh pengguna. Informasi kamar dan tarif pada empat lantai harus dapat ditemukan melalui *dashboard* utama dengan maksimal tiga kali klik.
+
+### 4.3 Reliability
+
+Sistem harus menjaga keamanan, ketepatan, dan konsistensi data. Seluruh informasi pendaftaran, kamar, pembayaran, dan pengaduan perlu tersimpan dengan baik agar dapat diakses serta ditindaklanjuti oleh pengelola.
 
 ## 5. Kebutuhan Signifikan Arsitektur (ASR)
-* **ASR-1 (Performa Concurrency):** Saat 500 calon penghuni mengakses pendaftaran secara serentak (beban puncak), sistem harus menampung antrean permintaan melalui *Message Queue* dengan waktu tanggap < 2 detik dan *zero downtime*.
-* **ASR-2 (Kebergunaan Informasi):** Saat pengguna mencari kamar kosong dan rincian tarif 4 lantai, sistem harus menampilkan data secara visual di *dashboard* utama dalam waktu tanggap < 1,5 detik.
-* **ASR-3 (Keandalan Pencatatan):** Saat penghuni mengajukan tiket keluhan fasilitas, sistem harus menyimpan status laporan secara otomatis ke basis data terelasi dengan keandalan pencatatan 99,99%.
+
+*Architectural Significant Requirements* (ASR) merupakan kebutuhan penting yang menjadi dasar dalam menentukan rancangan arsitektur sistem. Berdasarkan karakteristik mutu yang telah ditetapkan, terdapat tiga kebutuhan utama.
+
+### 5.1 ASR-1: Performance Efficiency (Efisiensi Proses Pelayanan Terintegrasi)
+
+Sistem harus mampu memproses pendaftaran, pemeriksaan kamar, dan penyampaian informasi secara efisien melalui satu platform. Waktu respons untuk layanan utama ditargetkan maksimal 2 detik.
+
+### 5.2 ASR-2: Usability (Kemudahan Akses Informasi Kamar)
+
+Sistem harus menampilkan informasi ketersediaan dan tarif kamar pada empat lantai Rusunawa Putri melalui *dashboard* utama. Pengguna diharapkan dapat menemukan informasi tersebut dengan maksimal tiga kali klik dan waktu respons maksimal 1,5 detik.
+
+### 5.3 ASR-3: Reliability (Keandalan Penyimpanan dan Pengelolaan Data)
+
+Sistem harus menyimpan data pendaftaran, pembayaran, dan pengaduan beserta perubahan statusnya secara konsisten dalam basis data terelasi. Keberhasilan penyimpanan data ditargetkan minimal 99,99% untuk mengurangi risiko kehilangan atau ketidaksesuaian data.
+
+## 6. Keterkaitan Quality Drivers dengan ASR
+
+| No. | Quality Driver | ASR Terkait | Fokus Kebutuhan |
+|---|---|---|---|
+| 1 | Performance Efficiency | ASR-1 | Mempercepat pelayanan terintegrasi dengan waktu respons maksimal 2 detik. |
+| 2 | Usability | ASR-2 | Memudahkan pencarian informasi kamar dan tarif dengan maksimal tiga kali klik serta respons 1,5 detik. |
+| 3 | Reliability | ASR-3 | Menjaga konsistensi dan keberhasilan penyimpanan data minimal 99,99%. |
