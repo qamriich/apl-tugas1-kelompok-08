@@ -1,57 +1,59 @@
-# U3. Taktik
 
-## 1. ASR-1: Performance Efficiency (Performa)
+# BAB III. TAKTIK DAN POLA ARSITEKTUR (U3 & U4)
 
-**Taktik: Message Queue dan Load Balancing**
+## Bagian U3: Taktik Arsitektur (Architectural Tactics)
 
-- **Cara Kerja:**
+Taktik arsitektur merupakan keputusan desain berskala kecil yang digunakan untuk mengontrol dan memenuhi atribut kualitas spesifik pada Sistem Informasi Layanan Rusunawa Terpadu. Berikut adalah penjelasannya berdasarkan tiga ASR utama.
 
-  Sistem menggunakan Message Queue untuk menampung permintaan pendaftaran dari 500 calon penghuni secara bersamaan. Setiap permintaan dimasukkan ke dalam antrean agar diproses secara teratur oleh server aplikasi. Load Balancing membagi beban permintaan ke beberapa server agar tidak terjadi penumpukan pada satu server.
+---
 
-- **Tujuan:**
+### 1. Taktik Skenario 1: Performance Efficiency (Performa Concurrency Pendaftaran)
 
-  Mengurangi beban server dan menjaga waktu respons tetap kurang dari 2 detik saat terjadi lonjakan akses pendaftaran.
-
-- **Harga yang Dibayar (Trade-off):**
-
-  Penerapan kedua teknologi ini membutuhkan sumber daya server tambahan dan konfigurasi yang lebih kompleks. Selain itu, penggunaan antrean dapat menimbulkan sedikit keterlambatan dalam pemrosesan permintaan.
-
-## 2. ASR-2: Usability (Kebergunaan)
-
-**Taktik: Penyederhanaan Antarmuka dan Navigasi**
+- **Nama Taktik:** **Manage Demand (Message Queueing / Asynchronous Processing)**
+- **Atribut Kualitas:** Performance Efficiency (Capacity & Time Behaviour)
 
 - **Cara Kerja:**
 
-  Sistem menyediakan dashboard utama yang menampilkan informasi ketersediaan kamar, pembagian kamar berdasarkan empat lantai, serta rincian tarif sewa. Menu disusun secara sederhana agar pengguna dapat menemukan informasi dengan maksimal tiga kali klik.
+  Ketika 500 calon penghuni mengakses pendaftaran secara serentak pada jam pembukaan kuota, *Web Frontend* tidak langsung mengeksekusi penulisan (*write*) ke basis data utama. Permintaan diteruskan sebagai *event message* ke dalam antrean **RabbitMQ Message Queue**.
 
-- **Tujuan:**
+  Komponen *Registration Worker Service* kemudian memproses antrean pendaftaran satu per satu secara asinkron di belakang layar (*background process*).
 
-  Memudahkan calon penghuni dan penghuni dalam memperoleh informasi kamar tanpa harus menghubungi staf Rusunawa secara langsung.
+- **Harga yang Dibayar (Trade-off / Cost):**
 
-- **Harga yang Dibayar (Trade-off):**
+  - **Kompleksitas Infrastruktur:** Memerlukan pemeliharaan server tambahan untuk *Message Broker* (RabbitMQ) dan *worker daemon process*.
 
-  Penyederhanaan tampilan membutuhkan perencanaan dan pengujian agar informasi tetap mudah dipahami. Selain itu, banyaknya informasi dalam satu dashboard dapat membuat tampilan lebih padat, terutama pada smartphone.
+  - **Jeda Konfirmasi (Eventual Consistency Delay):** Pengguna tidak menerima status konfirmasi penetapan kamar secara instan, melainkan harus menunggu beberapa detik hingga *worker* selesai memproses antrean.
 
-## 3. ASR-3: Reliability (Keandalan)
+---
 
-**Taktik: Database Transaction dan Backup Data**
+### 2. Taktik Skenario 2: Usability (Kemudahan Akses Katalog & Tarif 4 Lantai)
+
+- **Nama Taktik:** **Support User Initiative & Maintain Data Copies (Read-Model Caching)**
+- **Atribut Kualitas:** Usability (Operability & Learnability)
 
 - **Cara Kerja:**
 
-  Sistem menggunakan transaksi basis data untuk memastikan setiap pengaduan tersimpan secara utuh dan konsisten. Setelah laporan berhasil disimpan, sistem memberikan nomor tiket dan status pengaduan kepada penghuni. Backup data dilakukan secara berkala untuk mengantisipasi kehilangan data akibat gangguan sistem.
+  Untuk memastikan halaman utama menampilkan ketersediaan kamar empat lantai dan rincian tarif dalam waktu kurang dari 1,5 detik serta maksimal tiga kali klik, sistem menyalin data ketersediaan kamar dari basis data ke **Redis In-Memory Cache**.
 
-- **Tujuan:**
+  Saat mahasiswa mengakses *dashboard*, *Web Frontend* langsung membaca data dari Redis tanpa perlu melakukan *query join* yang berat ke basis data utama.
 
-  Menjaga konsistensi data pengaduan serta memastikan laporan dapat diakses dan ditindaklanjuti oleh penghuni maupun pengelola Rusunawa.
+- **Harga yang Dibayar (Trade-off / Cost):**
 
-- **Harga yang Dibayar (Trade-off):**
+  - **Overhead Invalidation Cache:** Memerlukan penerapan logika pembersihan *cache* (*cache invalidation logic*) yang tepat. Setiap kali pengelola mengubah data kamar atau kuota terisi, sistem harus langsung memperbarui *cache* Redis agar informasi yang ditampilkan tetap terbaru dan tidak menggunakan data lama (*stale data*).
 
-  Penerapan transaksi basis data dan backup membutuhkan kapasitas penyimpanan tambahan serta waktu pemrosesan. Selain itu, pencadangan data perlu dikelola secara rutin agar data dapat dipulihkan ketika terjadi gangguan.
+---
 
-## 4. Ringkasan Penerapan Taktik
+### 3. Taktik Skenario 3: Reliability (Keandalan Pencatatan Tiket Pengaduan Kerusakan)
 
-| No. | ASR | Quality Attribute | Taktik yang Digunakan | Tujuan Utama |
-|---|---|---|---|---|
-| 1 | ASR-1 | Performance Efficiency | Message Queue dan Load Balancing | Menangani 500 pengguna secara bersamaan dengan waktu respons kurang dari 2 detik. |
-| 2 | ASR-2 | Usability | Penyederhanaan Antarmuka dan Navigasi | Memudahkan pencarian informasi kamar dan tarif maksimal tiga kali klik. |
-| 3 | ASR-3 | Reliability | Database Transaction dan Backup Data | Menjaga konsistensi serta mencegah kehilangan data pengaduan. |
+- **Nama Taktik:** **State Persistence & Transaction Control (ACID Database Transaction)**
+- **Atribut Kualitas:** Reliability (Fault Tolerance & Data Persistence)
+
+- **Cara Kerja:**
+
+  Saat penghuni mengirimkan tiket pengaduan kerusakan fasilitas, seperti keran bocor atau gangguan listrik, sistem membungkus proses penyimpanannya menggunakan mekanisme transaksi **MySQL RDBMS (ACID Compliance)**.
+
+  Setiap tiket yang masuk secara otomatis diberikan nomor tiket unik, status awal (`Diterima`), serta mencatat *timestamp* transaksional untuk menjaga keandalan data sebesar 99,99% dan mengurangi risiko kehilangan laporan.
+
+- **Harga yang Dibayar (Trade-off / Cost):**
+
+  - **Penurunan Write Throughput Maksimum:** Penggunaan kuncian transaksi (*database locking*) dapat sedikit menurunkan kecepatan penulisan apabila terjadi ribuan penulisan tiket secara bersamaan dalam satu milidetik.
